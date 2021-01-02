@@ -1,0 +1,39 @@
+# Clion
+
+debug
+*.out
+cmake-build-debug
+rendu
+
+# jekyll
+
+_site
+.sass-cache
+.jekyll-metadata
+_includes/README.md
+.tweet-cache
+.jekyll-cache
+
+# VSCode
+
+.vscode
+
+# Secrets
+
+.env
+.htaccess
+
+# OS_garbage
+
+.DS_Store
+.idea
+
+# JS DEV
+
+node_modules
+/dist
+
+# PHP DEV
+
+vendor
+
