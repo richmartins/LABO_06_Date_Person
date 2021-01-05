@@ -120,11 +120,16 @@ Date& Date::operator--() {
     return *(this - 1);
 }
 Date Date::operator--(int) {
-    Date temp = *(this + 1);
+    Date temp = *(this - 1);
     return temp;
 }
-Date& Date::operator+=(int){}
-Date& Date::operator-=(int){}
+
+Date& Date::operator+=(int){
+    return ++(*this);
+}
+Date& Date::operator-=(int){
+    return --(*this);
+}
 
 unsigned Date::numberDaysInMonth(unsigned currentMonth, unsigned currentYear) {
     unsigned nbrDaysInMonth = currentMonth <= 7 ? currentMonth % 2 ? 31 : 30 : currentMonth % 2 ? 30 : 31;

@@ -91,7 +91,4 @@ public:
 
 };
 
-
-
-
 #endif //LABO_06_DATE_PERSON_DATE_H
