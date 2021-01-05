@@ -15,7 +15,8 @@ Compilateur    : gcc version 10.2.0 (Homebrew GCC 10.2.0) & Mingw-w64 g++ 8.1.0
 
 using namespace std;
 
-array<string, 12> monthsNames = {
+const size_t MONTHS = 12;
+array<string, MONTHS> monthsNames = {
     "January",
     "February",
     "March",
@@ -46,9 +47,7 @@ void Date::setMonth(unsigned m) {
 }
 
 void Date::setMonth(Month m){
-    //if(m >= Month::JANUARY && m <= Month::DECEMBER) {
-        this->month = int(m);
-    //}
+    this->month = int(m);
 }
 
 
@@ -77,14 +76,13 @@ Month Date::getMonthEnum() const {
     return Month(this->month);
 }
 
-std::string Date::getMonthString() {
+std::string Date::getMonthString() const {
     return monthsNames.at(this->month - 1);
 }
 
 unsigned Date::getYear() const {
     return this->year;
 }
-
 
 bool operator<(const Date &lhs, const Date &rhs){
     return lhs.year < rhs.year || lhs.month < rhs.month ||  lhs.day < rhs.day;
@@ -111,37 +109,43 @@ bool operator!=(const Date &lhs, const Date &rhs){
 }
 
 Date& Date::operator++() {
-    unsigned currentMonth = this->getMonthNo();
-    unsigned nbrDaysInMonth = currentMonth <= 7 ? currentMonth % 2 ? 31 : 30 : currentMonth % 2 ? 30 : 31;
-
-    if( this->getMonthEnum() == Month::FEBRUARY){
-        nbrDaysInMonth = 28;
-        if(this->isLeapYear()) {
-            nbrDaysInMonth = 29;
-        }
-    }
-
-
-
-    return *this;
+    return *(this + 1);
 }
 
-Date Date::operator++(int) {}
-Date& Date::operator--() {}
-Date Date::operator--(int) {}
+Date Date::operator++(int) {
+    Date temp = *(this + 1);
+    return temp;
+}
+Date& Date::operator--() {
+    return *(this - 1);
+}
+Date Date::operator--(int) {
+    Date temp = *(this + 1);
+    return temp;
+}
 Date& Date::operator+=(int){}
 Date& Date::operator-=(int){}
 
-Date operator+(Date lhs, int rhs) {
-    unsigned currentMonth = lhs.getMonthNo();
+unsigned Date::numberDaysInMonth(unsigned currentMonth, unsigned currentYear) {
     unsigned nbrDaysInMonth = currentMonth <= 7 ? currentMonth % 2 ? 31 : 30 : currentMonth % 2 ? 30 : 31;
 
-    if( lhs.getMonthEnum() == Month::FEBRUARY){
+    if(currentMonth == int(Month::FEBRUARY)){
         nbrDaysInMonth = 28;
-        if(lhs.isLeapYear()) {
+        if(Date::isLeapYear(currentYear)) {
             nbrDaysInMonth = 29;
         }
     }
+
+    return nbrDaysInMonth;
+}
+
+
+unsigned Date::numberDaysInMonth() const{
+    return numberDaysInMonth(this->month, this->day);
+}
+
+Date operator+(Date lhs, int rhs) {
+    unsigned nbrDaysInMonth =  Date::numberDaysInMonth(lhs.getMonthNo(), lhs.getYear());
 
     if(lhs.day + rhs > nbrDaysInMonth){
         lhs.day = 1;
@@ -161,11 +165,34 @@ Date operator+(int lhs, const Date& rhs) {
     return rhs + lhs;
 }
 
-Date operator-(Date lhs, int rhs) {}
+Date operator-(Date lhs, int rhs) {
+    unsigned nbrDaysInPreviousMonth = Date::numberDaysInMonth((lhs.getMonthNo() - 1), lhs.getYear());
 
+    if(lhs.day - rhs < 1){
+        if(lhs.month - 1 < 1){
+            lhs.year -= 1;
+            lhs.month = 12;
+            lhs.day = 31;
+        } else {
+            lhs.day = nbrDaysInPreviousMonth;
+        }
+    } else {
+        lhs.day -= rhs;
+    }
 
-bool Date::isValid(){}
-bool Date::isValid(unsigned day, unsigned month, unsigned year){}
+    return lhs;
+}
+
+Date::operator std::string() const {
+    return string(to_string(day) + '-' + to_string(month) + '-' + to_string(year));
+}
+
+bool Date::isValid() const{
+    return Date::isValid(this->day, this->month, this->year);
+}
+bool Date::isValid(unsigned day, unsigned month, unsigned year){
+    return day < numberDaysInMonth(month, year);
+}
 
 bool Date::isLeapYear(unsigned year){
     return year % 400 == 0 || year % 4 == 0 && year % 100 != 0;
@@ -175,4 +202,8 @@ bool Date::isLeapYear() const{
     return Date::isLeapYear(this->year);
 }
 
-
+std::ostream& operator<<(std::ostream &os, const Date &date) {
+    string res = date.isValid() ? string(date) : "Invalid date";
+    os << res;
+    return os;
+}

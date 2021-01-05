@@ -49,7 +49,7 @@ public:
     unsigned getDay() const;
     unsigned getMonthNo() const;
     Month getMonthEnum() const;
-    std::string getMonthString();
+    std::string getMonthString() const;
     unsigned getYear() const;
 
     friend bool operator<(const Date &lhs, const Date &rhs);
@@ -72,22 +72,22 @@ public:
 
     // TODO: check if this one is needed
     //Date& operator=(Date rhs) {};
-    Date& operator=(const Date &rhs) {};
+    //Date& operator=(const Date &rhs) {}; <-- page 89 pdf
     // TODO: check how to do this one
     // usecase => d4 = {11, 03, 1978}        : 11-03-1978
-    //Date& operator=(Date lhs, unsigned day, unsigned month, unsigned year) {};
-    explicit operator std::string() {};
+    // Date& operator=(Date &lhs,unsigned day, unsigned month, unsigned year);
+    explicit operator std::string() const;
 
-    bool isValid();
+    bool isValid() const;
     static bool isValid(unsigned day, unsigned month, unsigned year);
 
-    [[nodiscard]] bool isLeapYear() const;
+    bool isLeapYear() const;
     static bool isLeapYear(unsigned year);
 
-    unsigned numberDaysInMonth(){};
-    static unsigned numberDaysInMonth(unsigned month, unsigned year){};
+    unsigned numberDaysInMonth() const;
+    static unsigned numberDaysInMonth(unsigned, unsigned);
 
-    friend std::ostream& operator<<(std::ostream &os, const Date &date){};
+    friend std::ostream& operator<<(std::ostream &os, const Date &date);
 
 };
 
