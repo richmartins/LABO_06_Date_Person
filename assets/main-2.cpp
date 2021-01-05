@@ -1,5 +1,22 @@
+/*-------------------------------------------------------------------------------
+ Laboratoire : 07 - Person / Date
+ Fichier     : main.cpp - v1.3
+ Auteur(s)   : BREGUET Guy-Michel
+ Date        : 04.01.2021
+ But         : Programme de test pour les classes
+               - Date
+               - Person
+ Changes     : 05.01.2021 - GMB
+             : added (int) to cout << "(int)date.getMonthEnum()
+
+ Remarque(s) : la gestion des erreurs est assurée
+
+ Compilateur : MinGW-g++ 4.6.2
+ -------------------------------------------------------------------------------*/
+
 #include <cstdlib>
-#include <ostream>
+#include <iostream>
+#include <vector>
 #include <string>
 #include <algorithm>
 #include "Date.h"
@@ -46,7 +63,7 @@ int main() {
 
    cout << "date.getDay()              : " << date.getDay()             << endl;
    cout << "date.getMonthNo()          : " << date.getMonthNo()         << endl;
-   cout << "date.getMonthEnum()        : " << (int)date.getMonthEnum()  << endl;
+   cout << "(int)date.getMonthEnum()   : " << (int)date.getMonthEnum()  << endl;
    cout << "date.getMonthString()      : " << date.getMonthString()     << endl;
    cout << "date.getYear()             : " << date.getYear()            << endl;
 
@@ -82,7 +99,7 @@ int main() {
         << "arithmetic operators"                                       << endl;
    Date d3(1, 3, 2015);
    cout << d3 << " + 10 = " << (d3 + 10)                                << endl;
-   cout << d3 << " - 40 = " << (d3 - 42)                                << endl;
+   cout << d3 << " - 42 = " << (d3 - 42)                                << endl;
    cout << "10 + " << d3 << " = " << (10 + d3)                          << endl;
 
    cout << "----------------------------------------"                   << endl
@@ -168,11 +185,11 @@ int main() {
       sort(book.begin(), book.end(), SortBy(PERSON::NO_ID));
       cout << book << endl;
 
-      cout << "sorted by nom" << endl;
+      cout << "sorted by lastName" << endl;
       sort(book.begin(), book.end(), SortBy(PERSON::LASTNAME));
       cout << book << endl;
 
-      cout << "sorted by prenom" << endl;
+      cout << "sorted by firstName" << endl;
       sort(book.begin(), book.end(), SortBy(PERSON::FIRSTNAME));
       cout << book << endl;
 
@@ -270,7 +287,7 @@ void show(const Book& book, const PERSON& by, const string& str) {
 //               ----------------------------------------
 //               arithmetic operators
 //               01-03-2015 + 10 = 11-03-2015
-//               01-03-2015 - 40 = 18-01-2015
+//               01-03-2015 - 42 = 18-01-2015
 //               10 + 01-03-2015 = 11-03-2015
 //               ----------------------------------------
 //               assignment operator
