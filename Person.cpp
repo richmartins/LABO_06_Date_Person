@@ -9,3 +9,5 @@ Compilateur    : gcc version 10.2.0 (Homebrew GCC 10.2.0) & Mingw-w64 g++ 8.1.0
 -----------------------------------------------------------------------------------*/
 
 #include "Person.h"
+
+unsigned Person::id = 0;
