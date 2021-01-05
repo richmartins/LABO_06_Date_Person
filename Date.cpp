@@ -1,5 +1,5 @@
 /*-----------------------------------------------------------------------------------
-Laboratoire    : 05 Class Date & Person
+Laboratoire    : 06 Class Date & Person
 Nom de fichier : Date.cpp
 Auteur(s)      : Tobie Praz & Richard V. M. Tenorio
 Date création  : 02.01.21
