@@ -36,39 +36,39 @@ private:
     bool     correct = true;
 public:
     Date() = default;
-    explicit Date(const std::string&) {};
+    explicit Date(const std::string&);
     Date(unsigned day, unsigned month, unsigned year) : day(day), month(month), year(year){};
     Date(const Date& date) : day(date.day), month(date.month), year(date.year) {};
 
-    void setDay(unsigned) {};
-    void setMonth(unsigned) {};
-    void setMonth(Month) {};
-    void setMonth(const std::string&) {};
-    void setYear(unsigned){};
+    void setDay(unsigned);
+    void setMonth(unsigned);
+    void setMonth(Month);
+    void setMonth(const std::string&);
+    void setYear(unsigned);
 
-    unsigned getDay() {};
-    unsigned getMonthNo() {};
-    Month getMonthEnum() {};
-    std::string getMonthString() {};
-    unsigned getYear() {};
+    unsigned getDay() const;
+    unsigned getMonthNo() const;
+    Month getMonthEnum() const;
+    std::string getMonthString();
+    unsigned getYear() const;
 
-    friend bool operator<(const Date &lhs, const Date &rhs){};
-    friend bool operator>(const Date &lhs, const Date &rhs){};
-    friend bool operator<=(const Date &lhs, const Date &rhs){};
-    friend bool operator>=(const Date &lhs, const Date &rhs){};
-    friend bool operator==(const Date &lhs, const Date &rhs){};
-    friend bool operator!=(const Date &lhs, const Date &rhs){};
+    friend bool operator<(const Date &lhs, const Date &rhs);
+    friend bool operator>(const Date &lhs, const Date &rhs);
+    friend bool operator<=(const Date &lhs, const Date &rhs);
+    friend bool operator>=(const Date &lhs, const Date &rhs);
+    friend bool operator==(const Date &lhs, const Date &rhs);
+    friend bool operator!=(const Date &lhs, const Date &rhs);
 
-    Date& operator++() {};
-    Date operator++(int) {};
-    Date& operator--() {};
-    Date operator--(int) {};
-    Date& operator+=(int){};
-    Date& operator-=(int){};
+    Date& operator++();
+    Date operator++(int);
+    Date& operator--();
+    Date operator--(int);
+    Date& operator+=(int);
+    Date& operator-=(int);
 
-    friend Date operator+(Date lhs, int rhs) {};
-    friend Date operator+(int lhs, Date rhs) {};
-    friend Date operator-(Date lhs, int rhs) {};
+    friend Date operator+(Date lhs, int rhs);
+    friend Date operator+(int lhs, const Date& rhs);
+    friend Date operator-(Date lhs, int rhs);
 
     // TODO: check if this one is needed
     //Date& operator=(Date rhs) {};
@@ -78,11 +78,11 @@ public:
     //Date& operator=(Date lhs, unsigned day, unsigned month, unsigned year) {};
     explicit operator std::string() {};
 
-    bool isValid(){};
-    static bool isValid(unsigned day, unsigned month, unsigned year){};
+    bool isValid();
+    static bool isValid(unsigned day, unsigned month, unsigned year);
 
-    bool isLeapYear(){};
-    static bool isLeapYear(unsigned year){};
+    [[nodiscard]] bool isLeapYear() const;
+    static bool isLeapYear(unsigned year);
 
     unsigned numberDaysInMonth(){};
     static unsigned numberDaysInMonth(unsigned month, unsigned year){};
@@ -90,6 +90,8 @@ public:
     friend std::ostream& operator<<(std::ostream &os, const Date &date){};
 
 };
+
+
 
 
 #endif //LABO_06_DATE_PERSON_DATE_H
