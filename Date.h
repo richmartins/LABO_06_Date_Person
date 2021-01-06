@@ -37,8 +37,8 @@ private:
 public:
     Date() = default;
     explicit Date(const std::string&);
-    Date(unsigned day, unsigned month, unsigned year) : day(day), month(month), year(year){};
-    Date(const Date& date) : day(date.day), month(date.month), year(date.year) {};
+    Date(unsigned day, unsigned month, unsigned year);
+    Date(const Date& date);
 
     void setDay(unsigned);
     void setMonth(unsigned);
@@ -70,12 +70,6 @@ public:
     friend Date operator+(int lhs, const Date& rhs);
     friend Date operator-(Date lhs, int rhs);
 
-    // TODO: check if this one is needed
-    //Date& operator=(Date rhs) {};
-    //Date& operator=(const Date &rhs) {}; <-- page 89 pdf
-    // TODO: check how to do this one
-    // usecase => d4 = {11, 03, 1978}        : 11-03-1978
-    // Date& operator=(Date &lhs,unsigned day, unsigned month, unsigned year);
     explicit operator std::string() const;
 
     bool isValid() const;
