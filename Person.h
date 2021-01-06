@@ -12,6 +12,7 @@ Compilateur    : gcc version 10.2.0 (Homebrew GCC 10.2.0) & Mingw-w64 g++ 8.1.0
 #define LABO_06_DATE_PERSON_PERSON_H
 #include <string>
 #include <utility>
+#include <vector>
 #include "Date.h"
 
 enum class PERSON {
@@ -23,19 +24,29 @@ enum class PERSON {
 
 class Person {
 private:
-    static unsigned id;
+    static unsigned    id;
+    const unsigned     noId;
     const std::string& lastName;
     const std::string& firstName;
-    const Date        date;
-    const unsigned    noId;
+    const Date         date;
 
 public:
     Person(const std::string &firstname, const std::string &lastname, const Date& date)
     : firstName(firstname), lastName(lastname), date(date), noId(id++) {};
 
-    static unsigned nbrePerson(){};
+    ~Person();
 
-    friend std::ostream& operator<<(std::ostream &os, const Person &rhs){};
+
+    unsigned getIdNo() const;
+    std::string getIdNoString() const;
+    std::string getDateString() const;
+    Date getDate() const;
+    std::string getFirstName() const;
+    std::string getLastName() const;
+
+    static unsigned nbrePerson();
+
+    friend std::ostream& operator<<(std::ostream &os, const Person &rhs);
     Person& operator=(const Person &rhs) {};
 };
 
@@ -43,9 +54,9 @@ class SortBy{
 private:
     PERSON by;
 public:
-    explicit SortBy(PERSON by) : by(by){};
+    explicit SortBy(PERSON by) : by(by) {};
 
-    bool operator()(const Person &lhs, const Person &rhs){};
+    bool operator()(const Person &lhs, const Person &rhs);
 };
 
 
