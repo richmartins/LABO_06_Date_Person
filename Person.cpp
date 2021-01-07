@@ -14,12 +14,13 @@ Compilateur    : gcc version 10.2.0 (Homebrew GCC 10.2.0) & Mingw-w64 g++ 8.1.0
 unsigned Person::id = 0;
 unsigned Person::counter = 0;
 
-Person::Person(const std::string &lastname, const std::string &firstname, const Date& date)
-        : lastName(lastname), firstName(firstname), date(date), noId(++id) {
+Person::Person(const std::string &lastname, const std::string &firstname, const Date &date)
+    : lastName(lastname), firstName(firstname), date(date), noId(++id) {
     ++counter;
 }
 
-Person::Person(const Person &person) : firstName(person.firstName), lastName(person.lastName), date(person.date), noId(person.noId) {
+Person::Person(const Person &person) : firstName(person.firstName), lastName(person.lastName), date(person.date),
+                                       noId(person.noId) {
     ++counter;
 }
 
@@ -56,25 +57,33 @@ Date Person::getDate() const {
 }
 
 
-std::ostream& operator<<(std::ostream &os, const Person &rhs) {
-    return os << rhs.getFirstName() + " "     + rhs.getLastName()
-                                    + " "     + rhs.getDateString()
-                                    + " (id=" + rhs.getIdNoString() + ")";
+std::ostream &operator<<(std::ostream &os, const Person &rhs) {
+    return os << rhs.getLastName() + " " + rhs.getFirstName()
+                 + " " + rhs.getDateString()
+                 + " (id=" + rhs.getIdNoString() + ")";
 }
 
-Person& Person::operator=(const Person &rhs) {
-    return const_cast<Person &>(rhs);
+
+Person& Person::operator=(const Person &person) {
+    if (this != &person) {
+        (std::string &) lastName = person.lastName;
+        (std::string &) firstName = person.firstName;
+        (Date &) date = person.date;
+        (unsigned &) noId = person.noId;
+    }
+    return *this;
 }
+
 
 SortBy::SortBy(PERSON by) : by(by) {}
 
 bool SortBy::operator()(const Person &lhs, const Person &rhs) {
     switch (by) {
         case PERSON::FIRSTNAME : {
-            return lhs.getFirstName().compare(rhs.getFirstName()) <= 0;
+            return lhs.getFirstName() < rhs.getFirstName();
         }
         case PERSON::LASTNAME : {
-            return lhs.getLastName().compare(rhs.getLastName()) <= 0;
+            return lhs.getLastName() < rhs.getLastName();
         }
         case PERSON::NO_ID : {
             return lhs.getIdNo() < rhs.getIdNo();
@@ -105,6 +114,7 @@ bool FindBy::operator()(const Person &person) {
         case PERSON::DATE : {
             return person.getDateString() == str;
         }
-        default : return false;
+        default :
+            return false;
     }
 }
