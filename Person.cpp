@@ -14,7 +14,7 @@ Compilateur    : gcc version 10.2.0 (Homebrew GCC 10.2.0) & Mingw-w64 g++ 8.1.0
 unsigned Person::id = 0;
 unsigned Person::counter = 0;
 
-Person::Person(const std::string &lastname, const std::string &firstname, const Date &date)
+Person::Person(std::string lastname, std::string firstname, const Date &date)
     : lastName(lastname), firstName(firstname), date(date), noId(++id) {
     ++counter;
 }
@@ -66,10 +66,10 @@ std::ostream &operator<<(std::ostream &os, const Person &rhs) {
 
 Person& Person::operator=(const Person &person) {
     if (this != &person) {
-        (std::string &) lastName = person.lastName;
+        (std::string &) lastName  = person.lastName;
         (std::string &) firstName = person.firstName;
-        (Date &) date = person.date;
-        (unsigned &) noId = person.noId;
+        (Date &)             date = person.date;
+        (unsigned &)         noId = person.noId;
     }
     return *this;
 }
@@ -77,19 +77,19 @@ Person& Person::operator=(const Person &person) {
 
 SortBy::SortBy(PERSON by) : by(by) {}
 
-bool SortBy::operator()(const Person &lhs, const Person &rhs) {
+bool SortBy::operator()(Person &lhs, Person &rhs) {
     switch (by) {
-        case PERSON::FIRSTNAME : {
-            return lhs.getFirstName() < rhs.getFirstName();
-        }
-        case PERSON::LASTNAME : {
-            return lhs.getLastName() < rhs.getLastName();
-        }
         case PERSON::NO_ID : {
             return lhs.getIdNo() < rhs.getIdNo();
         }
         case PERSON::DATE : {
             return lhs.getDate() < rhs.getDate();
+        }
+        case PERSON::FIRSTNAME : {
+            return lhs.getFirstName() < rhs.getFirstName();
+        }
+        case PERSON::LASTNAME : {
+            return lhs.getLastName() < rhs.getLastName();
         }
         default : {
             return false;

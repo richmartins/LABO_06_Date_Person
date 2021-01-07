@@ -27,12 +27,12 @@ private:
     static unsigned    id;
     static unsigned    counter;
     const unsigned     noId;
-    const std::string& lastName;
-    const std::string& firstName;
+    const std::string  lastName;
+    const std::string  firstName;
     const Date         date;
 
 public:
-    Person(const std::string &firstname, const std::string &lastname, const Date& date);
+    Person(std::string firstname, std::string lastname, const Date &date);
     Person(const Person& person);
 
     ~Person();
@@ -45,10 +45,10 @@ public:
     std::string getLastName() const;
 
     static unsigned nbrePerson();
+    Person& operator=(const Person &person);
 
     friend std::ostream& operator<<(std::ostream &os, const Person &rhs);
 
-    Person& operator=(const Person &person);
 };
 
 class SortBy{
@@ -56,7 +56,7 @@ private:
     PERSON by;
 public:
     explicit SortBy(PERSON by);
-    bool operator()(const Person &lhs, const Person &rhs);
+    bool operator()(Person &lhs, Person &rhs);
 };
 
 
