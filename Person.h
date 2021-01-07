@@ -25,6 +25,7 @@ enum class PERSON {
 class Person {
 private:
     static unsigned    id;
+    static unsigned    counter;
     const unsigned     noId;
     const std::string& lastName;
     const std::string& firstName;
