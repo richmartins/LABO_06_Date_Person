@@ -14,8 +14,8 @@ Compilateur    : gcc version 10.2.0 (Homebrew GCC 10.2.0) & Mingw-w64 g++ 8.1.0
 unsigned Person::id = 0;
 unsigned Person::counter = 0;
 
-Person::Person(const std::string &firstname, const std::string &lastname, const Date& date)
-        : firstName(firstname), lastName(lastname), date(date), noId(++id) {
+Person::Person(const std::string &lastname, const std::string &firstname, const Date& date)
+        : lastName(lastname), firstName(firstname), date(date), noId(++id) {
     ++counter;
 }
 
@@ -91,19 +91,19 @@ bool SortBy::operator()(const Person &lhs, const Person &rhs) {
 
 FindBy::FindBy(PERSON by, const std::string &str) : by(by), str(str) {}
 
-bool FindBy::operator()(const Person &lhs, const Person &rhs) {
+bool FindBy::operator()(const Person &person) {
     switch (by) {
         case PERSON::FIRSTNAME : {
-            return lhs.getFirstName() == rhs.getFirstName();
+            return person.getFirstName() == str;
         }
         case PERSON::LASTNAME : {
-            return lhs.getLastName() == rhs.getLastName();
+            return person.getLastName() == str;
         }
         case PERSON::NO_ID : {
-            return lhs.getIdNoString() == rhs.getIdNoString();
+            return person.getIdNoString() == str;
         }
         case PERSON::DATE : {
-            return lhs.getDateString() == rhs.getDateString();
+            return person.getDateString() == str;
         }
         default : return false;
     }
