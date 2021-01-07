@@ -10,8 +10,8 @@ Compilateur    : gcc version 10.2.0 (Homebrew GCC 10.2.0) & Mingw-w64 g++ 8.1.0
 
 #ifndef LABO_06_DATE_PERSON_PERSON_H
 #define LABO_06_DATE_PERSON_PERSON_H
+
 #include <string>
-#include <utility>
 #include <vector>
 #include "Date.h"
 
@@ -31,11 +31,10 @@ private:
     const Date         date;
 
 public:
-    Person(const std::string &firstname, const std::string &lastname, const Date& date)
-    : firstName(firstname), lastName(lastname), date(date), noId(id++) {};
+    Person(const std::string &firstname, const std::string &lastname, const Date& date);
+    Person(const Person& person);
 
     ~Person();
-
 
     unsigned getIdNo() const;
     std::string getIdNoString() const;
@@ -47,6 +46,8 @@ public:
     static unsigned nbrePerson();
 
     friend std::ostream& operator<<(std::ostream &os, const Person &rhs);
+
+    //TODO: Check behavior
     Person& operator=(const Person &rhs) {};
 };
 
@@ -54,8 +55,7 @@ class SortBy{
 private:
     PERSON by;
 public:
-    explicit SortBy(PERSON by) : by(by) {};
-
+    explicit SortBy(PERSON by);
     bool operator()(const Person &lhs, const Person &rhs);
 };
 
@@ -65,8 +65,8 @@ private:
     PERSON by;
     const std::string& str;
 public:
-    FindBy(PERSON by, const std::string &str) : by(by), str(str) {};
-    bool operator()(const Person &person){};
+    FindBy(PERSON by, const std::string &str);
+    bool operator()(const Person &person);
 };
 
 

@@ -13,6 +13,13 @@ Compilateur    : gcc version 10.2.0 (Homebrew GCC 10.2.0) & Mingw-w64 g++ 8.1.0
 
 unsigned Person::id = 0;
 
+Person::Person(const std::string &firstname, const std::string &lastname, const Date& date)
+        : firstName(firstname), lastName(lastname), date(date), noId(++id) {}
+
+Person::Person(const Person &person) : firstName(person.firstName), lastName(person.lastName), date(person.date), noId(person.noId) {
+    ++id;
+}
+
 Person::~Person() {
     Person::id--;
 }
@@ -29,7 +36,6 @@ std::string Person::getLastName() const {
     return lastName;
 }
 
-
 unsigned Person::getIdNo() const {
     return noId;
 }
@@ -42,16 +48,19 @@ std::string Person::getDateString() const {
     return std::string(date);
 }
 
-
 Date Person::getDate() const {
     return date;
 }
+
 
 std::ostream& operator<<(std::ostream &os, const Person &rhs) {
     return os << rhs.getFirstName() + " "     + rhs.getLastName()
                                     + " "     + rhs.getDateString()
                                     + " (id=" + rhs.getIdNoString() + ")";
 }
+
+
+SortBy::SortBy(PERSON by) : by(by) {}
 
 bool SortBy::operator()(const Person &lhs, const Person &rhs) {
     switch (by) {
@@ -71,4 +80,11 @@ bool SortBy::operator()(const Person &lhs, const Person &rhs) {
             return false;
         }
     }
+}
+
+
+FindBy::FindBy(PERSON by, const std::string &str) : by(by), str(str) {}
+
+bool FindBy::operator()(const Person &person) {
+    return true;
 }
