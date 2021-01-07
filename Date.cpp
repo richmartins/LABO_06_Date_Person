@@ -37,36 +37,43 @@ Date::Date(const std::string &date) {
     this->day = stoi(date.substr(0, 2));
     this->month = stoi(date.substr(3, 2));
     this->year = stoi(date.substr(6, 4));
+    this->correct = isValid();
 }
 
-Date::Date(unsigned day, unsigned month, unsigned year) : day(day), month(month), year(year) {}
+Date::Date(unsigned day, unsigned month, unsigned year) : day(day), month(month), year(year) {
+    this->correct = isValid();
+}
 
-Date::Date(const Date &date) : day(date.day), month(date.month), year(date.year) {}
+Date::Date(const Date &date) : day(date.day), month(date.month), year(date.year) {
+    this->correct = isValid();
+}
 
 
-//TODO: Set `Date::correct` in setters
 void Date::setDay(unsigned d) {
     this->day = d;
+    this->correct = isValid();
 }
 
 void Date::setMonth(unsigned m) {
     this->month = m;
+    this->correct = isValid();
 }
 
 void Date::setMonth(Month m) {
-    this->month = int(m);
+    setMonth(int(m));
 }
 
 void Date::setMonth(const std::string &m) {
     auto it = find(monthsNames.begin(), monthsNames.end(), m);
 
     if (it != monthsNames.end()) {
-        this->month = (it - monthsNames.begin()) + 1;
+        setMonth(it - monthsNames.begin() + 1);
     }
 }
 
 void Date::setYear(unsigned y) {
     this->year = y;
+    this->correct = isValid();
 }
 
 
@@ -121,24 +128,6 @@ bool Date::operator!=(const Date &rhs) const {
 }
 
 
-unsigned Date::numberDaysInMonth(unsigned currentMonth, unsigned currentYear) {
-    unsigned nbrDaysInMonth = currentMonth <= 7 ? currentMonth % 2 ? 31 : 30 : currentMonth % 2 ? 30 : 31;
-
-    if (currentMonth == int(Month::FEBRUARY)) {
-        nbrDaysInMonth = 28;
-        if (Date::isLeapYear(currentYear)) {
-            nbrDaysInMonth = 29;
-        }
-    }
-
-    return nbrDaysInMonth;
-}
-
-unsigned Date::numberDaysInMonth() const {
-    return numberDaysInMonth(this->month, this->year);
-}
-
-
 Date &Date::operator++() {
     return *this += 1;
 }
@@ -173,7 +162,7 @@ Date &Date::operator+=(int rhs) {
     while (this->day + rhs > nbrDaysInMonth) {
         rhs -= (nbrDaysInMonth - this->day) + 1;
         this->day = 1;
-        if (this->month + 1 > 12) {
+        if (this->month + 1 > MONTHS) {
             ++this->year;
             this->month = 1;
         } else {
@@ -197,12 +186,12 @@ Date &Date::operator-=(int rhs) {
 
     while ((int) this->day - rhs < 1) {
         unsigned previousMonth = this->getMonthNo() - 1;
-        unsigned nbrDaysInPreviousMonth = Date::numberDaysInMonth(previousMonth ? previousMonth : 12, this->getYear());
+        unsigned nbrDaysInPreviousMonth = Date::numberDaysInMonth(previousMonth ? previousMonth : MONTHS, this->getYear());
         rhs -= this->day;
         this->day = nbrDaysInPreviousMonth;
         if (this->month - 1 < 1) {
             --this->year;
-            this->month = 12;
+            this->month = MONTHS;
         } else {
             --this->month;
         }
@@ -241,16 +230,33 @@ bool Date::isValid(unsigned day, unsigned month, unsigned year) {
     return month >= (int) Month::JANUARY && month <= (int) Month::DECEMBER && day <= numberDaysInMonth(month, year);
 }
 
-bool Date::isLeapYear(unsigned year) {
-    return year % 400 == 0 || year % 4 == 0 && year % 100 != 0;
-}
-
 bool Date::isLeapYear() const {
     return Date::isLeapYear(this->year);
 }
 
+bool Date::isLeapYear(unsigned year) {
+    return year % 400 == 0 || year % 4 == 0 && year % 100 != 0;
+}
+
+unsigned Date::numberDaysInMonth() const {
+    return numberDaysInMonth(this->month, this->year);
+}
+
+unsigned Date::numberDaysInMonth(unsigned currentMonth, unsigned currentYear) {
+    unsigned nbrDaysInMonth = currentMonth <= 7 ? currentMonth % 2 ? 31 : 30 : currentMonth % 2 ? 30 : 31;
+
+    if (currentMonth == int(Month::FEBRUARY)) {
+        nbrDaysInMonth = 28;
+        if (Date::isLeapYear(currentYear)) {
+            nbrDaysInMonth = 29;
+        }
+    }
+
+    return nbrDaysInMonth;
+}
+
 std::ostream &operator<<(std::ostream &os, const Date &date) {
-    string res = date.isValid() ? string(date) : "Invalid date";
+    string res = date.correct ? string(date) : "Invalid date";
     os << res;
     return os;
 }
