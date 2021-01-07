@@ -11,24 +11,26 @@ Compilateur    : gcc version 10.2.0 (Homebrew GCC 10.2.0) & Mingw-w64 g++ 8.1.0
 #include <string>
 #include <array>
 #include <algorithm>
+#include <sstream>
+#include <iomanip>
 #include "Date.h"
 
 using namespace std;
 
 const size_t MONTHS = 12;
 array<string, MONTHS> monthsNames = {
-        "January",
-        "February",
-        "March",
-        "April",
-        "May",
-        "June",
-        "July",
-        "August",
-        "September",
-        "October",
-        "November",
-        "December"
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December"
 };
 
 Date::Date(const std::string &date) {
@@ -90,7 +92,7 @@ unsigned Date::getYear() const {
 
 
 bool Date::operator<(const Date &rhs) const {
-    if(!(this->correct && rhs.correct)) return false;
+    if (!(this->correct && rhs.correct)) return false;
     return this->year < rhs.year || this->month < rhs.month || this->day < rhs.day;
 }
 
@@ -99,22 +101,22 @@ bool Date::operator>(const Date &rhs) const {
 }
 
 bool Date::operator<=(const Date &rhs) const {
-    if(!(this->correct && rhs.correct)) return false;
+    if (!(this->correct && rhs.correct)) return false;
     return !(*this > rhs);
 }
 
 bool Date::operator>=(const Date &rhs) const {
-    if(!(this->correct && rhs.correct)) return false;
+    if (!(this->correct && rhs.correct)) return false;
     return !(*this < rhs);
 }
 
 bool Date::operator==(const Date &rhs) const {
-    if(!(this->correct && rhs.correct)) return false;
+    if (!(this->correct && rhs.correct)) return false;
     return this->year == rhs.year && this->month == rhs.month && this->day == rhs.day;
 }
 
 bool Date::operator!=(const Date &rhs) const {
-    if(!(this->correct && rhs.correct)) return false;
+    if (!(this->correct && rhs.correct)) return false;
     return !(*this == rhs);
 }
 
@@ -223,7 +225,12 @@ Date operator-(Date lhs, int rhs) {
 }
 
 Date::operator std::string() const {
-    return string(to_string(day) + '-' + to_string(month) + '-' + to_string(year));
+    stringstream out;
+    out << setfill('0')
+        << setw(2) << day << '-'
+        << setw(2) << month << '-'
+        << setw(4) << year;
+    return out.str();
 }
 
 bool Date::isValid() const {
