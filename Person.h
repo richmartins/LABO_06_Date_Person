@@ -24,12 +24,12 @@ enum class PERSON {
 
 class Person {
 private:
-    static unsigned    id;
-    static unsigned    counter;
-    const unsigned     noId;
-    const std::string  lastName;
-    const std::string  firstName;
-    const Date         date;
+    static unsigned id;
+    static unsigned counter;
+    const unsigned noId;
+    const std::string lastName;
+    const std::string firstName;
+    const Date date;
 
 public:
 
@@ -49,7 +49,7 @@ public:
      *
      * @param Person person
      */
-    Person(const Person& person);
+    Person(const Person &person);
 
     /**
      * @section descritption
@@ -112,6 +112,7 @@ public:
      * @return unsigned
      */
     static unsigned nbrePerson();
+
     /**
      * @section description
      * surcharge de l'operateur d'affectation
@@ -119,7 +120,7 @@ public:
      * @param const Person
      * @return Person&
      */
-    Person& operator=(const Person &person);
+    Person &operator=(const Person &person);
 
     /**
      * @section description
@@ -129,11 +130,11 @@ public:
      * @param const Person rhs
      * @return std::ostream
      */
-    friend std::ostream& operator<<(std::ostream &os, const Person &rhs);
+    friend std::ostream &operator<<(std::ostream &os, const Person &rhs);
 
 };
 
-class SortBy{
+class SortBy {
 private:
     PERSON by;
 public:
@@ -144,6 +145,7 @@ public:
      * @param PERSON by
      */
     explicit SortBy(PERSON by);
+
     /**
      * @section description
      *
@@ -157,10 +159,10 @@ public:
 };
 
 
-class FindBy{
+class FindBy {
 private:
     PERSON by;
-    const std::string& str;
+    const std::string &str;
 public:
 
     /**

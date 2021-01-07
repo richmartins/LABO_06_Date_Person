@@ -27,159 +27,161 @@ using namespace std;
 
 //------------------------------------------------------------
 // collection of persons
-using  Book = vector<Person>;
-ostream& operator<< (ostream& os, const Book& book);
-void show(const Book& book, const PERSON& by, const string& str);
+using Book = vector<Person>;
+
+ostream &operator<<(ostream &os, const Book &book);
+
+void show(const Book &book, const PERSON &by, const string &str);
 
 //------------------------------------------------------------
 int main() {
 
     cout << boolalpha;   // for comparison operators
 
-    cout << "----------------------------------------"                   << endl;
-    cout << "   test of class Date"                                      << endl;
-    cout << "----------------------------------------"                   << endl;
+    cout << "----------------------------------------" << endl;
+    cout << "   test of class Date" << endl;
+    cout << "----------------------------------------" << endl;
 
-    cout << "constructors"                                               << endl;
-    cout << "Date()                     : " << Date()                    << endl;
-    cout << "Date(\"11-03-2019\")         : " << Date("11-03-2019")      << endl;
+    cout << "constructors" << endl;
+    cout << "Date()                     : " << Date() << endl;
+    cout << "Date(\"11-03-2019\")         : " << Date("11-03-2019") << endl;
     Date date(27, 8, 1991);
-    cout << "Date(27, 8, 1991)          : " << Date(27, 8, 1991)         << endl;
+    cout << "Date(27, 8, 1991)          : " << Date(27, 8, 1991) << endl;
 
-    cout << "Date(date)                 : " << Date(date)                << endl;
+    cout << "Date(date)                 : " << Date(date) << endl;
 
-    cout << "----------------------------------------"                   << endl
-         << "getters and setters"                                        << endl;
+    cout << "----------------------------------------" << endl
+         << "getters and setters" << endl;
     date.setDay(18);
-    cout << "setDay(unsigned)           : " << date                      << endl;
+    cout << "setDay(unsigned)           : " << date << endl;
 
     date.setMonth(6);
-    cout << "setMonth(unsigned)         : " << date                      << endl;
+    cout << "setMonth(unsigned)         : " << date << endl;
 
     date.setMonth("September");
-    cout << "setMonth(string)           : " << date                      << endl;
+    cout << "setMonth(string)           : " << date << endl;
 
     date.setMonth(Month::MARCH);
-    cout << "setMonth(Month)            : " << date                      << endl;
+    cout << "setMonth(Month)            : " << date << endl;
 
-    cout << "date.getDay()              : " << date.getDay()             << endl;
-    cout << "date.getMonthNo()          : " << date.getMonthNo()         << endl;
-    cout << "(int)date.getMonthEnum()   : " << (int)date.getMonthEnum()  << endl;
-    cout << "date.getMonthString()      : " << date.getMonthString()     << endl;
-    cout << "date.getYear()             : " << date.getYear()            << endl;
+    cout << "date.getDay()              : " << date.getDay() << endl;
+    cout << "date.getMonthNo()          : " << date.getMonthNo() << endl;
+    cout << "(int)date.getMonthEnum()   : " << (int) date.getMonthEnum() << endl;
+    cout << "date.getMonthString()      : " << date.getMonthString() << endl;
+    cout << "date.getYear()             : " << date.getYear() << endl;
 
     Date d1(1, 1, 2010);
     Date d2(2, 1, 2010);
-    cout << "----------------------------------------"                   << endl
-         << "comparison operators"                                       << endl
-         << d1 << " <  " << d2 << " ? " << (d1 <  d2)                    << endl
-         << d2 << " <  " << d1 << " ? " << (d2 <  d1)                    << endl
-         << d1 << " <= " << d2 << " ? " << (d1 <= d2)                    << endl
-         << d1 << " >= " << d2 << " ? " << (d1 >= d2)                    << endl
-         << d1 << " == " << d2 << " ? " << (d1 == d2)                    << endl;
+    cout << "----------------------------------------" << endl
+         << "comparison operators" << endl
+         << d1 << " <  " << d2 << " ? " << (d1 < d2) << endl
+         << d2 << " <  " << d1 << " ? " << (d2 < d1) << endl
+         << d1 << " <= " << d2 << " ? " << (d1 <= d2) << endl
+         << d1 << " >= " << d2 << " ? " << (d1 >= d2) << endl
+         << d1 << " == " << d2 << " ? " << (d1 == d2) << endl;
     --d2;
-    cout << d1 << " == " << d2 << " ? " << (d1 == d2)                    << endl
-         << d1 << " <  " << d2 << " ? " << (d1 <  d2)                    << endl
-         << d1 << " >  " << d2 << " ? " << (d1 >  d2)                    << endl
-         << d1 << " <= " << d2 << " ? " << (d1 <= d2)                    << endl
-         << d1 << " >= " << d2 << " ? " << (d1 >= d2)                    << endl;
+    cout << d1 << " == " << d2 << " ? " << (d1 == d2) << endl
+         << d1 << " <  " << d2 << " ? " << (d1 < d2) << endl
+         << d1 << " >  " << d2 << " ? " << (d1 > d2) << endl
+         << d1 << " <= " << d2 << " ? " << (d1 <= d2) << endl
+         << d1 << " >= " << d2 << " ? " << (d1 >= d2) << endl;
 
-    cout << "----------------------------------------"                   << endl
-         << "compound assignment operators"                              << endl
+    cout << "----------------------------------------" << endl
+         << "compound assignment operators" << endl
          << "d1 : " << d1 << endl;
-    cout << "--d1  : " << d1     << " => " << (--d1)                     << endl;
-    cout << "++d1  : " << d1     << " => " << (++d1)                     << endl;
-    cout << "d1--  : " << (d1--) << " => " << d1                         << endl;
-    cout << "d1++  : " << (d1++) << " => " << d1                         << endl;
+    cout << "--d1  : " << d1 << " => " << (--d1) << endl;
+    cout << "++d1  : " << d1 << " => " << (++d1) << endl;
+    cout << "d1--  : " << (d1--) << " => " << d1 << endl;
+    cout << "d1++  : " << (d1++) << " => " << d1 << endl;
 
     cout << "d2 : " << d2 << endl;
-    cout << "d2-=2 : " << d2 << " => " << (d2-=2)                        << endl;
-    cout << "d2+=3 : " << d2 << " => " << (d2+=3)                        << endl;
+    cout << "d2-=2 : " << d2 << " => " << (d2 -= 2) << endl;
+    cout << "d2+=3 : " << d2 << " => " << (d2 += 3) << endl;
 
-    cout << "----------------------------------------"                   << endl
-         << "arithmetic operators"                                       << endl;
+    cout << "----------------------------------------" << endl
+         << "arithmetic operators" << endl;
     Date d3(1, 3, 2015);
-    cout << d3 << " + 10 = " << (d3 + 10)                                << endl;
-    cout << d3 << " - 42 = " << (d3 - 42)                                << endl;
-    cout << "10 + " << d3 << " = " << (10 + d3)                          << endl;
+    cout << d3 << " + 10 = " << (d3 + 10) << endl;
+    cout << d3 << " - 42 = " << (d3 - 42) << endl;
+    cout << "10 + " << d3 << " = " << (10 + d3) << endl;
 
-    cout << "----------------------------------------"                   << endl
-         << "assignment operator"                                        << endl;
+    cout << "----------------------------------------" << endl
+         << "assignment operator" << endl;
     Date d4;
     d4 = d3;
-    cout << "d4 = d3                    : " << d4                        << endl;
+    cout << "d4 = d3                    : " << d4 << endl;
 
     d4 = {11, 03, 1978};
-    cout << "d4 = {11, 03, 1978}        : " << d4                        << endl;
+    cout << "d4 = {11, 03, 1978}        : " << d4 << endl;
 
     Date d5;
     d5 = {2, 3, 2020};
-    cout << "string(d5)                 : "  << string(d5)               << endl;
+    cout << "string(d5)                 : " << string(d5) << endl;
 
-    cout << "----------------------------------------"                   << endl
-         << "wrong dates"                                                << endl;
+    cout << "----------------------------------------" << endl
+         << "wrong dates" << endl;
     // in case a Date is wrong, then :
     // - when converted to string, displayed, etc => "Invalid Date"
     // - when treated with an arithmetic operators => unchanged
     // - when treated with an comparison operators => alway false
     // - setter are effective and may correct the date to a valid status
     Date d6(31, 6, 2020);
-    cout << "d6(31, 6, 2020)            : " << d6                        << endl;
+    cout << "d6(31, 6, 2020)            : " << d6 << endl;
     d6.setDay(30);
-    cout << "d6(30, 6, 2020)            : " << d6                        << endl;
+    cout << "d6(30, 6, 2020)            : " << d6 << endl;
     d6.setMonth(Month::FEBRUARY);
-    cout << "d6(30, 2, 2020)            : " << d6                        << endl;
+    cout << "d6(30, 2, 2020)            : " << d6 << endl;
 
-    cout << "d6.isValid()               : " << d6.isValid()              << endl;
-    cout << "isValid(31, 6, 2020)       : " << Date::isValid(31, 6, 2020)<< endl;
+    cout << "d6.isValid()               : " << d6.isValid() << endl;
+    cout << "isValid(31, 6, 2020)       : " << Date::isValid(31, 6, 2020) << endl;
 
-    cout << "----------------------------------------"                   << endl
-         << "LeapYear"                                                   << endl;
-    cout << "d6.isLeapYear()            : " << d6.isLeapYear()           << endl;
-    cout << "isLeapYear(2020)           : " << Date::isLeapYear(2020)    << endl;
+    cout << "----------------------------------------" << endl
+         << "LeapYear" << endl;
+    cout << "d6.isLeapYear()            : " << d6.isLeapYear() << endl;
+    cout << "isLeapYear(2020)           : " << Date::isLeapYear(2020) << endl;
 
-    cout << "----------------------------------------"                   << endl
-         << "numberDaysInMonth"                                          << endl;
-    cout << "d6.numberDaysInMonth()     : " << d6.numberDaysInMonth()    << endl;
+    cout << "----------------------------------------" << endl
+         << "numberDaysInMonth" << endl;
+    cout << "d6.numberDaysInMonth()     : " << d6.numberDaysInMonth() << endl;
     cout << "numberDaysInMonth(2, 2020) : " << Date::numberDaysInMonth(2, 2020)
          << endl;
 
     cout << endl;
-    cout << "----------------------------------------"                   << endl;
-    cout << "   class Person"                                            << endl;
-    cout << "----------------------------------------"                   << endl;
+    cout << "----------------------------------------" << endl;
+    cout << "   class Person" << endl;
+    cout << "----------------------------------------" << endl;
     Person p1("Anna", "Conda", Date(12, 3, 2007));
     cout << p1 << endl;
-    cout << "person counter : " << Person::nbrePerson()                  << endl;
+    cout << "person counter : " << Person::nbrePerson() << endl;
 
     Person p2(p1);
     cout << p2 << endl;
-    cout << "person counter : " << Person::nbrePerson()                  << endl;
+    cout << "person counter : " << Person::nbrePerson() << endl;
 
     p2 = p1;
     cout << p2 << endl;
-    cout << "person counter : " << Person::nbrePerson()                  << endl;
+    cout << "person counter : " << Person::nbrePerson() << endl;
 
     //------------------------------------------------------------
     // vector of Person
     //------------------------------------------------------------
     cout << endl;
-    cout << "----------------------------------------"                   << endl
-         << "3 new persones"                                             << endl;
-    Person Marilyn  ( "Monroe",  "Marilyn", Date( 1, 6, 1926) );
-    Person Elvis    ( "Presley", "Elvis",   Date( 8, 1, 1935) );
-    Person Michael  ( "Jackson", "Michael", Date(29, 8, 1958) );
-    cout << "nbre personnes : " << Person::nbrePerson()                  << endl;
+    cout << "----------------------------------------" << endl
+         << "3 new persones" << endl;
+    Person Marilyn("Monroe", "Marilyn", Date(1, 6, 1926));
+    Person Elvis("Presley", "Elvis", Date(8, 1, 1935));
+    Person Michael("Jackson", "Michael", Date(29, 8, 1958));
+    cout << "nbre personnes : " << Person::nbrePerson() << endl;
 
     {
         cout << endl;
-        cout << "----------------------------------------"                << endl
-             << "a vector of 3 persons"                                   << endl;
+        cout << "----------------------------------------" << endl
+             << "a vector of 3 persons" << endl;
         Book book;
         book.push_back(Marilyn);
         book.push_back(Elvis);
         book.push_back(Michael);
-        cout << "person counter : " << Person::nbrePerson()               << endl;
+        cout << "person counter : " << Person::nbrePerson() << endl;
 
         cout << endl;
         cout << "sorted by noId" << endl;
@@ -198,42 +200,42 @@ int main() {
         sort(book.begin(), book.end(), SortBy(PERSON::DATE));
         cout << book << endl;
 
-        cout << "----------------------------------------"                << endl
-             << "find a person by its no_id"                              << endl;
+        cout << "----------------------------------------" << endl
+             << "find a person by its no_id" << endl;
         show(book, PERSON::NO_ID, "2");
         cout << endl;
 
-        cout << "----------------------------------------"                << endl
-             << "find a person by its firstname"                          << endl;
+        cout << "----------------------------------------" << endl
+             << "find a person by its firstname" << endl;
         show(book, PERSON::LASTNAME, "Presley");
         cout << endl;
 
-        cout << "----------------------------------------"                << endl
-             << "find a person by its lastname"                           << endl;
+        cout << "----------------------------------------" << endl
+             << "find a person by its lastname" << endl;
         show(book, PERSON::FIRSTNAME, "Marilyn");
         cout << endl;
 
-        cout << "----------------------------------------"                << endl
-             << "find a person by its date"                               << endl;
+        cout << "----------------------------------------" << endl
+             << "find a person by its date" << endl;
         show(book, PERSON::DATE, "29-08-1958");
         cout << endl;
     }
 
     cout << endl;
-    cout << "person counter : " << Person::nbrePerson()                  << endl;
+    cout << "person counter : " << Person::nbrePerson() << endl;
 
     return EXIT_SUCCESS;
 }
 
 //------------------------------------------------------------
-ostream& operator<< (ostream& os, const Book& book) {
-    for (const Person& p : book)
+ostream &operator<<(ostream &os, const Book &book) {
+    for (const Person &p : book)
         os << p << endl;
     return os;
 }
 
 //------------------------------------------------------------
-void show(const Book& book, const PERSON& by, const string& str) {
+void show(const Book &book, const PERSON &by, const string &str) {
     Book::const_iterator it = find_if(book.begin(), book.end(), FindBy(by, str));
     if (it != book.end())
         cout << *it;

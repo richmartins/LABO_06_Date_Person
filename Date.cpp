@@ -19,18 +19,18 @@ using namespace std;
 
 const size_t MONTHS = 12;
 array<string, MONTHS> monthsNames = {
-    "January",
-    "February",
-    "March",
-    "April",
-    "May",
-    "June",
-    "July",
-    "August",
-    "September",
-    "October",
-    "November",
-    "December"
+        "January",
+        "February",
+        "March",
+        "April",
+        "May",
+        "June",
+        "July",
+        "August",
+        "September",
+        "October",
+        "November",
+        "December"
 };
 
 Date::Date(const std::string &date) {
@@ -186,7 +186,8 @@ Date &Date::operator-=(int rhs) {
 
     while ((int) this->day - rhs < 1) {
         unsigned previousMonth = this->getMonthNo() - 1;
-        unsigned nbrDaysInPreviousMonth = Date::numberDaysInMonth(previousMonth ? previousMonth : MONTHS, this->getYear());
+        unsigned nbrDaysInPreviousMonth = Date::numberDaysInMonth(previousMonth ? previousMonth : MONTHS,
+                                                                  this->getYear());
         rhs -= this->day;
         this->day = nbrDaysInPreviousMonth;
         if (this->month - 1 < 1) {

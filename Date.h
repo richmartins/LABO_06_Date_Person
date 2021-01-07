@@ -31,9 +31,9 @@ enum class Month {
 class Date {
 private:
     unsigned day = 1,
-             month = 1,
-             year = 1900;
-    bool     correct = true;
+            month = 1,
+            year = 1900;
+    bool correct = true;
 public:
 
     /**
@@ -48,7 +48,7 @@ public:
      * constructeur avec un string comme parametre
      *
      */
-    explicit Date(const std::string&);
+    explicit Date(const std::string &);
 
     /**
      * @section description
@@ -66,7 +66,7 @@ public:
      *
      * @param Date date
      */
-    Date(const Date& date);
+    Date(const Date &date);
 
     /**
      * @section description
@@ -94,7 +94,7 @@ public:
      * setteur pour l'attribut month avec un std::string comme parametre
      *
      */
-    void setMonth(const std::string&);
+    void setMonth(const std::string &);
 
     /**
      * @section description
@@ -204,7 +204,7 @@ public:
      *
      * @return bool
      */
-    Date& operator++();
+    Date &operator++();
 
     /**
      * @section description
@@ -220,7 +220,7 @@ public:
      *
      * @return Date&
      */
-    Date& operator--();
+    Date &operator--();
 
     /**
      * @section description
@@ -236,7 +236,7 @@ public:
      *
      * @return Date&
      */
-    Date& operator+=(int);
+    Date &operator+=(int);
 
     /**
      * @section description
@@ -244,7 +244,7 @@ public:
      *
      * @return
      */
-    Date& operator-=(int);
+    Date &operator-=(int);
 
     /**
      * @section description
@@ -264,7 +264,7 @@ public:
      * @param Date rhs
      * @return Date
      */
-    friend Date operator+(int lhs, const Date& rhs);
+    friend Date operator+(int lhs, const Date &rhs);
 
     /**
      * @section description
@@ -291,6 +291,7 @@ public:
      * @return bool
      */
     bool isValid() const;
+
     /**
      * @section description
      * surcharge de la methode membre isValid avec 3 parametres
@@ -342,7 +343,7 @@ public:
      * @param Date date
      * @return ostream&
      */
-    friend std::ostream& operator<<(std::ostream &os, const Date &date);
+    friend std::ostream &operator<<(std::ostream &os, const Date &date);
 
 };
 

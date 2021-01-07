@@ -15,7 +15,7 @@ unsigned Person::id = 0;
 unsigned Person::counter = 0;
 
 Person::Person(std::string lastname, std::string firstname, const Date &date)
-    : lastName(lastname), firstName(firstname), date(date), noId(++id) {
+        : lastName(lastname), firstName(firstname), date(date), noId(++id) {
     ++counter;
 }
 
@@ -64,12 +64,12 @@ std::ostream &operator<<(std::ostream &os, const Person &rhs) {
 }
 
 
-Person& Person::operator=(const Person &person) {
+Person &Person::operator=(const Person &person) {
     if (this != &person) {
-        (std::string &) lastName  = person.lastName;
+        (std::string &) lastName = person.lastName;
         (std::string &) firstName = person.firstName;
-        (Date &)             date = person.date;
-        (unsigned &)         noId = person.noId;
+        (Date &) date = person.date;
+        (unsigned &) noId = person.noId;
     }
     return *this;
 }
