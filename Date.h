@@ -52,12 +52,12 @@ public:
     std::string getMonthString() const;
     unsigned getYear() const;
 
-    friend bool operator<(const Date &lhs, const Date &rhs);
-    friend bool operator>(const Date &lhs, const Date &rhs);
-    friend bool operator<=(const Date &lhs, const Date &rhs);
-    friend bool operator>=(const Date &lhs, const Date &rhs);
-    friend bool operator==(const Date &lhs, const Date &rhs);
-    friend bool operator!=(const Date &lhs, const Date &rhs);
+    bool operator<(const Date &rhs) const;
+    bool operator>(const Date &rhs) const;
+    bool operator<=(const Date &rhs) const;
+    bool operator>=(const Date &rhs) const;
+    bool operator==(const Date &rhs) const;
+    bool operator!=(const Date &rhs) const;
 
     Date& operator++();
     Date operator++(int);

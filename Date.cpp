@@ -89,33 +89,33 @@ unsigned Date::getYear() const {
 }
 
 
-bool operator<(const Date &lhs, const Date &rhs) {
-    if(!(lhs.correct && rhs.correct)) return false;
-    return lhs.year < rhs.year || lhs.month < rhs.month || lhs.day < rhs.day;
+bool Date::operator<(const Date &rhs) const {
+    if(!(this->correct && rhs.correct)) return false;
+    return this->year < rhs.year || this->month < rhs.month || this->day < rhs.day;
 }
 
-bool operator>(const Date &lhs, const Date &rhs) {
-    return rhs < lhs;
+bool Date::operator>(const Date &rhs) const {
+    return rhs < *this;
 }
 
-bool operator<=(const Date &lhs, const Date &rhs) {
-    if(!(lhs.correct && rhs.correct)) return false;
-    return !(lhs > rhs);
+bool Date::operator<=(const Date &rhs) const {
+    if(!(this->correct && rhs.correct)) return false;
+    return !(*this > rhs);
 }
 
-bool operator>=(const Date &lhs, const Date &rhs) {
-    if(!(lhs.correct && rhs.correct)) return false;
-    return !(lhs < rhs);
+bool Date::operator>=(const Date &rhs) const {
+    if(!(this->correct && rhs.correct)) return false;
+    return !(*this < rhs);
 }
 
-bool operator==(const Date &lhs, const Date &rhs) {
-    if(!(lhs.correct && rhs.correct)) return false;
-    return lhs.year == rhs.year && lhs.month == rhs.month && lhs.day == rhs.day;
+bool Date::operator==(const Date &rhs) const {
+    if(!(this->correct && rhs.correct)) return false;
+    return this->year == rhs.year && this->month == rhs.month && this->day == rhs.day;
 }
 
-bool operator!=(const Date &lhs, const Date &rhs) {
-    if(!(lhs.correct && rhs.correct)) return false;
-    return !(lhs == rhs);
+bool Date::operator!=(const Date &rhs) const {
+    if(!(this->correct && rhs.correct)) return false;
+    return !(*this == rhs);
 }
 
 
