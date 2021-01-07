@@ -12,25 +12,23 @@ Compilateur    : gcc version 10.2.0 (Homebrew GCC 10.2.0) & Mingw-w64 g++ 8.1.0
 #include "Person.h"
 
 unsigned Person::id = 0;
+unsigned Person::counter = 0;
 
 Person::Person(const std::string &firstname, const std::string &lastname, const Date& date)
-        : firstName(firstname), lastName(lastname), date(date), noId(++id) {}
+        : firstName(firstname), lastName(lastname), date(date), noId(++id) {
+    ++counter;
+}
 
-//Person::Person(const Person &person)
-//        : firstName(person.firstName), lastName(person.lastName), date(person.date), noId(person.noId) {
-//    ++id;
-//}
-
-Person& Person::operator=(const Person &rhs) {
-    //firstName = rhs.firstName;
+Person::Person(const Person &person) : firstName(person.firstName), lastName(person.lastName), date(person.date), noId(person.noId) {
+    ++counter;
 }
 
 Person::~Person() {
-    Person::id--;
+    --counter;
 }
 
 unsigned Person::nbrePerson() {
-    return Person::id;
+    return counter;
 }
 
 std::string Person::getFirstName() const {
@@ -64,6 +62,9 @@ std::ostream& operator<<(std::ostream &os, const Person &rhs) {
                                     + " (id=" + rhs.getIdNoString() + ")";
 }
 
+Person& Person::operator=(const Person &rhs) {
+    return const_cast<Person &>(rhs);
+}
 
 SortBy::SortBy(PERSON by) : by(by) {}
 
