@@ -16,8 +16,13 @@ unsigned Person::id = 0;
 Person::Person(const std::string &firstname, const std::string &lastname, const Date& date)
         : firstName(firstname), lastName(lastname), date(date), noId(++id) {}
 
-Person::Person(const Person &person) : firstName(person.firstName), lastName(person.lastName), date(person.date), noId(person.noId) {
-    ++id;
+//Person::Person(const Person &person)
+//        : firstName(person.firstName), lastName(person.lastName), date(person.date), noId(person.noId) {
+//    ++id;
+//}
+
+Person& Person::operator=(const Person &rhs) {
+    //firstName = rhs.firstName;
 }
 
 Person::~Person() {
@@ -85,6 +90,20 @@ bool SortBy::operator()(const Person &lhs, const Person &rhs) {
 
 FindBy::FindBy(PERSON by, const std::string &str) : by(by), str(str) {}
 
-bool FindBy::operator()(const Person &person) {
-    return true;
+bool FindBy::operator()(const Person &lhs, const Person &rhs) {
+    switch (by) {
+        case PERSON::FIRSTNAME : {
+            return lhs.getFirstName() == rhs.getFirstName();
+        }
+        case PERSON::LASTNAME : {
+            return lhs.getLastName() == rhs.getLastName();
+        }
+        case PERSON::NO_ID : {
+            return lhs.getIdNoString() == rhs.getIdNoString();
+        }
+        case PERSON::DATE : {
+            return lhs.getDateString() == rhs.getDateString();
+        }
+        default : return false;
+    }
 }

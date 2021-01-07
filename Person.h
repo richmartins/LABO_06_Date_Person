@@ -32,7 +32,7 @@ private:
 
 public:
     Person(const std::string &firstname, const std::string &lastname, const Date& date);
-    Person(const Person& person);
+    //Person(const Person& person);
 
     ~Person();
 
@@ -48,7 +48,7 @@ public:
     friend std::ostream& operator<<(std::ostream &os, const Person &rhs);
 
     //TODO: Check behavior
-    Person& operator=(const Person &rhs) {};
+    Person& operator=(const Person &rhs);
 };
 
 class SortBy{
@@ -66,7 +66,7 @@ private:
     const std::string& str;
 public:
     FindBy(PERSON by, const std::string &str);
-    bool operator()(const Person &person);
+    bool operator()(const Person &lhs, const Person &rhs);
 };
 
 
