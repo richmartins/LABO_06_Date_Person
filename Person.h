@@ -48,8 +48,7 @@ public:
 
     friend std::ostream& operator<<(std::ostream &os, const Person &rhs);
 
-    //TODO: Check behavior
-    Person& operator=(const Person &rhs) {};
+    Person& operator=(const Person &rhs);
 };
 
 class SortBy{

@@ -62,6 +62,9 @@ std::ostream& operator<<(std::ostream &os, const Person &rhs) {
                                     + " (id=" + rhs.getIdNoString() + ")";
 }
 
+Person& Person::operator=(const Person &rhs) {
+    return const_cast<Person &>(rhs);
+}
 
 SortBy::SortBy(PERSON by) : by(by) {}
 
