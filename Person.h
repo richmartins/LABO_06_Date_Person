@@ -56,7 +56,7 @@ private:
     PERSON by;
 public:
     explicit SortBy(PERSON by);
-    bool operator()(Person &lhs, Person &rhs);
+    bool operator()(const Person &lhs, const Person &rhs);
 };
 
 

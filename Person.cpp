@@ -77,7 +77,7 @@ Person& Person::operator=(const Person &person) {
 
 SortBy::SortBy(PERSON by) : by(by) {}
 
-bool SortBy::operator()(Person &lhs, Person &rhs) {
+bool SortBy::operator()(const Person &lhs, const Person &rhs) {
     switch (by) {
         case PERSON::NO_ID : {
             return lhs.getIdNo() < rhs.getIdNo();
