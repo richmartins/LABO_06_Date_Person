@@ -3,8 +3,11 @@ Laboratoire    : 06 Class Date & Person
 Nom de fichier : Date.cpp
 Auteur(s)      : Tobie Praz & Richard V. M. Tenorio
 Date création  : 02.01.21
-Description    : <remplir>
-Remarque(s)    : <remplir>
+Description    : Definition de la classe Date
+                 - Accesseurs
+                 - Opération arithmétique et de comparaison
+                 - Conversion en String
+Remarque(s)    : -
 Compilateur    : gcc version 10.2.0 (Homebrew GCC 10.2.0) & Mingw-w64 g++ 8.1.0
 -----------------------------------------------------------------------------------*/
 
@@ -34,9 +37,9 @@ array<string, MONTHS> monthsNames = {
 };
 
 Date::Date(const std::string &date) {
-    this->day = stoi(date.substr(0, 2));
-    this->month = stoi(date.substr(3, 2));
-    this->year = stoi(date.substr(6, 4));
+    this->day     = stoi(date.substr(0, 2));
+    this->month   = stoi(date.substr(3, 2));
+    this->year    = stoi(date.substr(6, 4));
     this->correct = isValid();
 }
 
@@ -50,12 +53,12 @@ Date::Date(const Date &date) : day(date.day), month(date.month), year(date.year)
 
 
 void Date::setDay(unsigned d) {
-    this->day = d;
+    this->day     = d;
     this->correct = isValid();
 }
 
 void Date::setMonth(unsigned m) {
-    this->month = m;
+    this->month   = m;
     this->correct = isValid();
 }
 
@@ -72,7 +75,7 @@ void Date::setMonth(const std::string &m) {
 }
 
 void Date::setYear(unsigned y) {
-    this->year = y;
+    this->year    = y;
     this->correct = isValid();
 }
 
@@ -96,7 +99,6 @@ std::string Date::getMonthString() const {
 unsigned Date::getYear() const {
     return this->year;
 }
-
 
 bool Date::operator<(const Date &rhs) const {
     if (!(this->correct && rhs.correct)) return false;
@@ -186,8 +188,10 @@ Date &Date::operator-=(int rhs) {
 
     while ((int) this->day - rhs < 1) {
         unsigned previousMonth = this->getMonthNo() - 1;
-        unsigned nbrDaysInPreviousMonth = Date::numberDaysInMonth(previousMonth ? previousMonth : MONTHS,
-                                                                  this->getYear());
+        unsigned nbrDaysInPreviousMonth = Date::numberDaysInMonth(
+                            previousMonth ? previousMonth : MONTHS,
+                            this->getYear()
+        );
         rhs -= this->day;
         this->day = nbrDaysInPreviousMonth;
         if (this->month - 1 < 1) {
@@ -217,7 +221,7 @@ Date operator-(Date lhs, int rhs) {
 Date::operator std::string() const {
     stringstream out;
     out << setfill('0')
-        << setw(2) << day << '-'
+        << setw(2) << day   << '-'
         << setw(2) << month << '-'
         << setw(4) << year;
     return out.str();
@@ -228,7 +232,9 @@ bool Date::isValid() const {
 }
 
 bool Date::isValid(unsigned day, unsigned month, unsigned year) {
-    return month >= (int) Month::JANUARY && month <= (int) Month::DECEMBER && day <= numberDaysInMonth(month, year);
+    return month >= (int) Month::JANUARY
+    && month <= (int) Month::DECEMBER
+    && day <= numberDaysInMonth(month, year);
 }
 
 bool Date::isLeapYear() const {
@@ -244,7 +250,9 @@ unsigned Date::numberDaysInMonth() const {
 }
 
 unsigned Date::numberDaysInMonth(unsigned currentMonth, unsigned currentYear) {
-    unsigned nbrDaysInMonth = currentMonth <= 7 ? currentMonth % 2 ? 31 : 30 : currentMonth % 2 ? 30 : 31;
+    unsigned nbrDaysInMonth = (currentMonth <= 7) ?
+            currentMonth % 2 ? 31 : 30 : currentMonth % 2 ? 30
+            : 31;
 
     if (currentMonth == int(Month::FEBRUARY)) {
         nbrDaysInMonth = 28;
